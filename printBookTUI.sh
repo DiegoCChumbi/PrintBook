@@ -11,7 +11,7 @@ printbook() {
   pares=$(mktemp --suffix=.pdf)
   impares=$(mktemp --suffix=.pdf)
 
-  gum spin --spinner dot --title "Generando el formato libro..." --show-output -- \
+  gum spin --spinner points --title "Generando el formato libro..." -- \
     bash -c "pdfbook2 -n '$fileName' && \
              pdftk '$bookFileName' cat odd output '$impares' && \
              pdftk '$bookFileName' cat even output '$pares'"
@@ -19,7 +19,7 @@ printbook() {
   JOB_MSG=$(LC_ALL=C lp "${CONF[@]}" "$impares")
   JOB_ID=$(echo "$JOB_MSG" | awk '{print $4}')
 
-  gum spin --spinner globe --title "Imprimiendo caras IMPAR ($JOB_ID)..." -- \
+  gum spin --spinner points --title "Imprimiendo caras IMPAR ($JOB_ID)..." -- \
     bash -c "while lpstat | grep -q '$JOB_ID'; do sleep 2; done"
 
   gum style \
@@ -30,11 +30,11 @@ printbook() {
     "2. Voltea las hojas (según tu impresora)." \
     "3. Vuelve a insertarlas en la bandeja."
 
-  if gum confirm "Simón, ya las puse. Imprimir PARES"; then
+  if gum confirm "Continuar, imprimir PARES"; then
     JOB_MSG=$(LC_ALL=C lp "${CONF[@]}" "$pares")
     JOB_ID=$(echo "$JOB_MSG" | awk '{print $4}')
 
-    gum spin --spinner globe --title "Imprimiendo caras PAR ($JOB_ID)..." -- \
+    gum spin --spinner points --title "Imprimiendo caras PAR ($JOB_ID)..." -- \
       bash -c "while lpstat | grep -q '$JOB_ID'; do sleep 2; done"
 
     gum style --foreground 46 "Impresion de ${fileName} completada"
@@ -55,14 +55,14 @@ printNormal() {
   pares=$(mktemp --suffix=.pdf)
   impares=$(mktemp --suffix=.pdf)
 
-  gum spin --spinner dot --title "Generando el formato..." --show-output -- \
+  gum spin --spinner points --title "Generando el formato..." -- \
     bash -c "pdftk '$fileName' cat odd output '$impares' && \
              pdftk '$fileName' cat even output '$pares'"
 
   JOB_MSG=$(LC_ALL=C lp "${CONF[@]}" "$impares")
   JOB_ID=$(echo "$JOB_MSG" | awk '{print $4}')
 
-  gum spin --spinner globe --title "Imprimiendo caras IMPAR ($JOB_ID)..." -- \
+  gum spin --spinner points --title "Imprimiendo caras IMPAR ($JOB_ID)..." -- \
     bash -c "while lpstat | grep -q '$JOB_ID'; do sleep 2; done"
 
   gum style \
@@ -73,11 +73,11 @@ printNormal() {
     "2. Voltea las hojas (según tu impresora)." \
     "3. Vuelve a insertarlas en la bandeja."
 
-  if gum confirm "Simón, ya las puse. Imprimir PARES"; then
+  if gum confirm "Continuar, imprimir PARES"; then
     JOB_MSG=$(LC_ALL=C lp "${CONF[@]}" "$pares")
     JOB_ID=$(echo "$JOB_MSG" | awk '{print $4}')
 
-    gum spin --spinner globe --title "Imprimiendo caras PAR ($JOB_ID)..." -- \
+    gum spin --spinner points --title "Imprimiendo caras PAR ($JOB_ID)..." -- \
       bash -c "while lpstat | grep -q '$JOB_ID'; do sleep 2; done"
 
     gum style --foreground 46 "Impresion de ${fileName} completada"
