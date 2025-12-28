@@ -1,0 +1,7 @@
+# Ignorar el binario de gum
+gum/
+
+# Ignorar archivos temporales o de prueba
+*.pdf
+*.log
+gum
