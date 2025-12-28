@@ -4,3 +4,4 @@ gum/
 # Ignorar archivos temporales o de prueba
 *.pdf
 *.log
+gum
